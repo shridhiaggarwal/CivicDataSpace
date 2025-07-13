@@ -39,10 +39,3 @@ export interface SearchParams {
   sort?: SortBy;
   order?: OrderBy;
 }
-
-// Define the breadcrumb item type
-export interface BreadcrumbItem {
-  name: string;
-  href: string;
-  isLast?: boolean;
-}

@@ -1,9 +1,15 @@
 "use client";
 
 import { HEADER } from "@/utils/constants";
-import { BreadcrumbItem } from "@/utils/types";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+
+// Define the breadcrumb item type
+export interface BreadcrumbItem {
+  name: string;
+  href: string;
+  isLast?: boolean;
+}
 
 export default function Breadcrumb() {
   const pathname = usePathname();

@@ -24,3 +24,10 @@ export enum OrderBy {
 }
 
 export const sortOptions = [SortBy.RECENT, SortBy.ALPHABETICAL];
+
+export enum FilterOptions {
+    SECTORS = "sectors",
+    TAGS = "tags",
+    FORMATS = "formats",
+    GEOGRAPHY = "Geography",
+}

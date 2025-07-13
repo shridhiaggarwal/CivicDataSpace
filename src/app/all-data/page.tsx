@@ -8,9 +8,11 @@ import { CiGrid2H, CiGrid41 } from "react-icons/ci";
 import { BiSort } from "react-icons/bi";
 import { FaChevronDown } from "react-icons/fa";
 import { OrderBy, SortBy, sortOptions, ViewMode } from "@/utils/constants";
+import FilterSidebar, { FilterData, SelectedFilters } from "@/components/FilterSidebar";
 
 export default function AllData() {
   const [datasets, setDatasets] = useState<Dataset[]>([]);
+  const [filterData, setFilterData] = useState<FilterData>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [viewMode, setViewMode] = useState<ViewMode>(ViewMode.LIST);
@@ -18,6 +20,12 @@ export default function AllData() {
   const [sortBy, setSortBy] = useState<SortBy>(SortBy.RECENT);
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [selectedFilters, setSelectedFilters] = useState<SelectedFilters>({
+    sectors: [],
+    tags: [],
+    formats: [],
+    Geography: [],
+  });
 
   // Fetch data function
   const fetchData = useCallback(
@@ -34,7 +42,9 @@ export default function AllData() {
           query: query.trim() || undefined,
         });
 
+        console.log("API Response:", response);
         setDatasets(response.results);
+        setFilterData(response.aggregations);
       } catch (err) {
         setError("Failed to fetch datasets");
         console.error(err);
@@ -149,15 +159,33 @@ export default function AllData() {
         {loading ? (
           <div className="text-gray-500">Loading datasets...</div>
         ) : (
-          datasets.map((dataset) => (
-            <div key={dataset.id} className="border p-4 rounded">
-              <h3 className="font-semibold">{dataset.title}</h3>
-              <p className="text-gray-600">{dataset.description}</p>
-              <p className="text-sm text-gray-500">
-                Organization: {dataset.organization.name}
-              </p>
+          <div className="flex flex-col md:flex-row gap-4">
+            <FilterSidebar
+              filterData={filterData}
+              selectedFilters={selectedFilters}
+              onFilterChange={setSelectedFilters}
+              onClearAll={() =>
+                setSelectedFilters({
+                  sectors: [],
+                  tags: [],
+                  formats: [],
+                  Geography: [],
+                })
+              }
+              loading={loading}
+            />
+            <div className="flex flex-col">
+              {datasets.map((dataset) => (
+                <div key={dataset.id} className="border p-4 rounded">
+                  <h3 className="font-semibold">{dataset.title}</h3>
+                  <p className="text-gray-600">{dataset.description}</p>
+                  <p className="text-sm text-gray-500">
+                    Organization: {dataset.organization.name}
+                  </p>
+                </div>
+              ))}
             </div>
-          ))
+          </div>
         )}
       </div>
     </div>
