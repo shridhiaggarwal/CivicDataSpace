@@ -1,10 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
-import { FaGithub, FaLinkedin, FaTwitter, FaFacebook } from "react-icons/fa";
+import { FiGithub } from "react-icons/fi";
+import { LiaLinkedin } from "react-icons/lia";
+import { TbBrandTwitter } from "react-icons/tb";
+import { FiFacebook } from "react-icons/fi";
 
 const Footer = () => {
   return (
-    <footer className="bg-[#1f5f8d] text-white px-20 py-16">
+    <footer className="bg-[#1f5f8d] text-white px-4 md:px-20 py-4 md:py-16">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
         <div>
           {/* Logo */}
@@ -29,19 +32,19 @@ const Footer = () => {
         {/* Social Media Icons and Made By */}
         <div className="flex flex-col items-start md:items-end">
           <div className="pb-8">
-            <p className=" text-[#fdb557] font-bold mb-2 text-end">Follow Us</p>
+            <p className=" text-[#fdb557] font-bold mb-2 md:text-end">Follow Us</p>
             <div className="flex space-x-3">
-              <div className="w-[45px] h-[45px] bg-gray-600 rounded-full flex items-center justify-center hover:bg-gray-500 cursor-pointer">
-                <FaGithub className="w-6 h-6 text-white" />
+              <div className="w-[45px] h-[45px] bg-[#84dccf] rounded-full flex items-center justify-center hover:bg-gray-500 cursor-pointer">
+                <FiGithub className="w-6 h-6 text-black" />
               </div>
-              <div className="w-[45px] h-[45px] bg-gray-600 rounded-full flex items-center justify-center hover:bg-gray-500 cursor-pointer">
-                <FaLinkedin className="w-6 h-6 text-white" />
+              <div className="w-[45px] h-[45px] bg-[#84dccf] rounded-full flex items-center justify-center hover:bg-gray-500 cursor-pointer">
+                <LiaLinkedin className="w-6 h-6 text-black" />
               </div>
-              <div className="w-[45px] h-[45px] bg-gray-600 rounded-full flex items-center justify-center hover:bg-gray-500 cursor-pointer">
-                <FaTwitter className="w-6 h-6 text-white" />
+              <div className="w-[45px] h-[45px] bg-[#84dccf] rounded-full flex items-center justify-center hover:bg-gray-500 cursor-pointer">
+                <TbBrandTwitter className="w-6 h-6 text-black" />
               </div>
-              <div className="w-[45px] h-[45px] bg-gray-600 rounded-full flex items-center justify-center hover:bg-gray-500 cursor-pointer">
-                <FaFacebook className="w-6 h-6 text-white" />
+              <div className="w-[45px] h-[45px] bg-[#84dccf] rounded-full flex items-center justify-center hover:bg-gray-500 cursor-pointer">
+                <FiFacebook className="w-6 h-6 text-black" />
               </div>
             </div>
           </div>

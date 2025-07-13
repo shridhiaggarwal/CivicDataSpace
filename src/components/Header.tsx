@@ -5,7 +5,7 @@ import { useState } from "react";
 import { headerConfig } from "@/utils/header-config";
 import { FiSearch, FiMenu } from "react-icons/fi"; // Add this import
 import toast from "react-hot-toast";
-import { HEADER } from "@/utils/types";
+import { HEADER } from "@/utils/constants";
 
 const renderNavItem = (
   item: (typeof headerConfig)[0],
@@ -39,7 +39,7 @@ export default function Header() {
   };
 
   return (
-    <header className="bg-[#1f5f8d] text-white px-4 py-4 pl-8">
+    <header className="bg-[#1f5f8d] text-white px-4 py-4 md:pl-8">
       <div className="flex items-center justify-between h-16">
         {/* Logo */}
         <div className="flex items-center space-x-2">

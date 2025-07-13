@@ -1,6 +1,7 @@
 "use client";
 
-import { BreadcrumbItem, HEADER } from "@/utils/types";
+import { HEADER } from "@/utils/constants";
+import { BreadcrumbItem } from "@/utils/types";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -62,7 +63,7 @@ export default function Breadcrumb() {
   console.log(breadcrumbs);
 
   return (
-    <div className="bg-[#fdb557] py-2 px-8">
+    <div className="bg-[#fdb557] py-2 px-4 md:px-8">
       <nav className="flex items-center space-x-2 text-sm">
         {breadcrumbs.map((crumb, index) => (
           <div key={crumb.href} className="flex items-center">

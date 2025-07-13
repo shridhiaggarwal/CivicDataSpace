@@ -1,3 +1,5 @@
+import { OrderBy, SortBy } from "./constants";
+
 export interface Dataset {
   id: string;
   title: string;
@@ -34,18 +36,8 @@ export interface SearchParams {
   formats?: string;
   page?: number;
   size?: number;
-  sort?: "recent" | "alphabetical";
-  order?: "asc" | "desc";
-}
-
-export enum HEADER {
-  ALL_DATA = "all-data",
-  SECTORS = "sectors",
-  USE_CASES = "use-cases",
-  PUBLISHERS = "publishers",
-  ABOUT_US = "about-us",
-  SEARCH = "search",
-  LOGIN = "login",
+  sort?: SortBy;
+  order?: OrderBy;
 }
 
 // Define the breadcrumb item type

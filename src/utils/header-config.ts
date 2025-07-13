@@ -1,5 +1,5 @@
 import toast from "react-hot-toast";
-import { HEADER } from "./types";
+import { HEADER } from "./constants";
 
 const handleUnavailableFeature = () => {
   toast("Feature not available");
