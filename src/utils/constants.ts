@@ -26,8 +26,17 @@ export enum OrderBy {
 export const sortOptions = [SortBy.RECENT, SortBy.ALPHABETICAL];
 
 export enum FilterOptions {
-    SECTORS = "sectors",
-    TAGS = "tags",
-    FORMATS = "formats",
-    GEOGRAPHY = "Geography",
+  SECTORS = "sectors",
+  TAGS = "tags",
+  FORMATS = "formats",
+  GEOGRAPHY = "Geography",
 }
+
+export const formatDate = (dateString: string) => {
+  const date = new Date(dateString);
+  return date.toLocaleDateString("en-US", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+};

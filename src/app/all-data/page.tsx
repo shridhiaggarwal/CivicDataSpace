@@ -13,6 +13,7 @@ import FilterSidebar, {
   SelectedFilters,
 } from "@/components/FilterSidebar";
 import ListDataItem from "@/components/ListDataItem";
+import CardDataItem from "@/components/CardDataItem";
 
 export default function AllData() {
   const [datasets, setDatasets] = useState<Dataset[]>([]);
@@ -67,7 +68,7 @@ export default function AllData() {
 
         const response = await searchDatasets({
           page: 1,
-          size: 50,
+          size: 5,
           sort: sort.toLowerCase() as SortBy,
           order: order as OrderBy,
           query: query.trim() || undefined,
@@ -211,13 +212,25 @@ export default function AllData() {
           }
           loading={filtersLoading}
         />
-        <div className="flex-1 w-full max-w-full min-w-0 flex flex-col gap-6">
+        <div className="flex-1 w-full max-w-full min-w-0">
           {datasetsLoading ? (
             <div className="text-gray-500">Loading datasets...</div>
           ) : (
-            datasets.map((dataset) => (
-              <ListDataItem key={dataset.id} data={dataset} />
-            ))
+            <div
+              className={
+                viewMode === ViewMode.GRID
+                  ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+                  : "flex flex-col gap-6"
+              }
+            >
+              {datasets.map((dataset) =>
+                viewMode === ViewMode.GRID ? (
+                  <CardDataItem key={dataset.id} data={dataset} />
+                ) : (
+                  <ListDataItem key={dataset.id} data={dataset} />
+                )
+              )}
+            </div>
           )}
         </div>
       </div>

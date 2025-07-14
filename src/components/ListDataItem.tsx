@@ -10,6 +10,7 @@ import {
   BsFileZip,
 } from "react-icons/bs";
 import { Dataset } from "@/utils/types";
+import { formatDate } from "@/utils/constants";
 
 interface IFormats {
   [key: string]: {
@@ -35,14 +36,6 @@ export default function ListDataItem(props: ListDataItemProps) {
     download_count,
     has_charts,
   } = props.data;
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString("en-US", {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    });
-  };
 
   const getGeography = () => {
     const geoMetadata = metadata.find(
@@ -88,7 +81,7 @@ export default function ListDataItem(props: ListDataItemProps) {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+    <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 cursor-pointer">
       {/* Header */}
       <div className="mb-4">
         <h2 className="text-xl font-semibold text-[#1f5f8d] mb-4">{title}</h2>
