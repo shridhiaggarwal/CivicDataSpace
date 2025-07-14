@@ -1,36 +1,85 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CivicDataSpace
 
-## Getting Started
+CivicDataSpace is a modern civic data discovery platform built with Next.js, TypeScript and Tailwind. It provides advanced search, sorting, filtering, and pagination features for public datasets.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 🛠️ Tech Stack & Tools
+
+- **Framework:** [Next.js](https://nextjs.org) (App Router)
+- **Language:** TypeScript
+- **UI:** React, [Tailwind CSS](https://tailwindcss.com)
+- **Icons:** [React Icons](https://react-icons.github.io/react-icons/)
+- **Notifications:** [react-hot-toast](https://react-hot-toast.com/)
+- **API:** RESTful (fetches from civicdays.in)
+- **Deployment:** Vercel (recommended)
+
+---
+
+## 🚀 Setup Instructions
+
+1. **Clone the repository:**
+   ```bash
+   git clone <your-repo-url>
+   cd civicdataspace
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   # or
+   yarn install
+   # or
+   pnpm install
+   ```
+
+3. **Run the development server:**
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   # or
+   pnpm dev
+   ```
+
+4. **Open your browser:**
+   Visit [http://localhost:3000](http://localhost:3000)
+
+---
+
+## 📦 Project Structure
+
+```
+src/
+  app/           # Next.js app pages & layout
+  components/    # Reusable React components
+  utils/         # API, constants, types
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📝 Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Dataset search with filters (sectors, tags, formats, geography)
+- List/Grid view toggle
+- Pagination & sorting
+- Responsive design
+- Toast notifications
+- Custom header, breadcrumb, and footer
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 📚 Learn More
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Tailwind CSS Docs](https://tailwindcss.com/docs)
+- [React Icons](https://react-icons.github.io/react-icons/)
+- [Vercel](https://vercel.com/)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+**Made by Shridhi**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Assignment provided by CivicDataLab**
