@@ -37,7 +37,7 @@ export default function Pagination(props: PaginationProps) {
   };
 
   return (
-    <div className="bg-white p-4 border-r border-gray-200 shadow-sm rounded-lg flex items-center justify-end gap-4">
+    <div className="bg-white p-4 border-r border-gray-200 shadow-sm rounded-lg flex items-center justify-end gap-4 flex-wrap">
       {/* Rows per page dropdown */}
       <div className="flex items-center gap-2">
         <span className=" text-gray-600">Rows per page</span>

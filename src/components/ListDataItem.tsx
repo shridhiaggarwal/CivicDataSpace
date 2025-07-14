@@ -117,9 +117,9 @@ export default function ListDataItem(props: ListDataItemProps) {
       </div>
 
       {/* Bottom Section */}
-      <div className="flex items-start gap-4 w-full">
+      <div className="flex items-start flex-col md:flex-row gap-4 w-full">
         {/* Left Side - Sectors and Tags */}
-        <div className="flex flex-col flex-wrap gap-4 w-[50%]">
+        <div className="flex flex-col flex-wrap gap-4 w-full md:w-[50%]">
           <div className="flex items-center gap-2">
             <span className="text-sm text-gray-600">Sectors:</span>
             <div className="flex gap-2 flex-wrap">
@@ -151,7 +151,7 @@ export default function ListDataItem(props: ListDataItemProps) {
         </div>
 
         {/* Right Side - Publisher and Formats */}
-        <div className="flex flex-col flex-wrap gap-6 w-[50%]">
+        <div className="flex flex-col flex-wrap gap-6 w-full md:w-[50%]">
           <div className="flex items-center gap-2">
             <span className="text-sm text-gray-600">Published by:</span>
             <span className="text-sm text-gray-600 font-bold">
