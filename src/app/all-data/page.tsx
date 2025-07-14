@@ -14,6 +14,7 @@ import FilterSidebar, {
 } from "@/components/FilterSidebar";
 import ListDataItem from "@/components/ListDataItem";
 import CardDataItem from "@/components/CardDataItem";
+import Pagination from "@/components/Pagination";
 
 export default function AllData() {
   const [datasets, setDatasets] = useState<Dataset[]>([]);
@@ -32,6 +33,9 @@ export default function AllData() {
     formats: [],
     Geography: [],
   });
+  const [currentPage, setCurrentPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [totalItems, setTotalItems] = useState(0);
 
   // Fetch filter aggregations only once
   const fetchFilterAggregations = useCallback(async () => {
@@ -44,8 +48,8 @@ export default function AllData() {
         size: 1, // We only need aggregations, not the actual data
       });
 
-      console.log("Filter Aggregations Response:", response);
       setFilterData(response.aggregations);
+      setTotalItems(response.total);
     } catch (err) {
       console.error("Failed to fetch filter aggregations:", err);
       // Don't set error for filter aggregations failure
@@ -60,15 +64,17 @@ export default function AllData() {
       query: string,
       sort: SortBy,
       order: OrderBy,
-      filters: SelectedFilters
+      filters: SelectedFilters,
+      rowsPerPage: number,
+      page: number
     ) => {
       try {
         setDatasetsLoading(true);
         setError(null);
 
         const response = await searchDatasets({
-          page: 1,
-          size: 5,
+          page: page,
+          size: rowsPerPage,
           sort: sort.toLowerCase() as SortBy,
           order: order as OrderBy,
           query: query.trim() || undefined,
@@ -99,8 +105,23 @@ export default function AllData() {
 
   // Fetch datasets when search, sort, order, or filters change
   useEffect(() => {
-    fetchDatasets(searchQuery, sortBy, orderBy, selectedFilters);
-  }, [fetchDatasets, searchQuery, sortBy, orderBy, selectedFilters]);
+    fetchDatasets(
+      searchQuery,
+      sortBy,
+      orderBy,
+      selectedFilters,
+      rowsPerPage,
+      currentPage
+    );
+  }, [
+    fetchDatasets,
+    searchQuery,
+    sortBy,
+    orderBy,
+    selectedFilters,
+    rowsPerPage,
+    currentPage,
+  ]);
 
   const handleSearch = (value: string) => {
     setSearchQuery(value);
@@ -117,6 +138,14 @@ export default function AllData() {
     } else {
       setOrderBy(OrderBy.ASCENDING);
     }
+  };
+
+  const onPageChange = (value: number) => {
+    setCurrentPage(value);
+  };
+
+  const onRowsChange = (value: number) => {
+    setRowsPerPage(value);
   };
 
   return (
@@ -219,8 +248,8 @@ export default function AllData() {
             <div
               className={
                 viewMode === ViewMode.GRID
-                  ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-                  : "flex flex-col gap-6"
+                  ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8"
+                  : "flex flex-col gap-6 mb-8"
               }
             >
               {datasets.map((dataset) =>
@@ -232,6 +261,13 @@ export default function AllData() {
               )}
             </div>
           )}
+          <Pagination
+            currentPage={currentPage}
+            rowsPerPage={rowsPerPage}
+            totalItems={totalItems}
+            onPageChange={onPageChange}
+            onRowsChange={onRowsChange}
+          />
         </div>
       </div>
     </div>

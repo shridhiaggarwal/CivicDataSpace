@@ -37,7 +37,6 @@ export const searchDatasets = async (
     }
 
     const queryString = searchParams.toString();
-    console.log("API Query String:", queryString);
     const response = await fetch(`${BASE_URL}?${queryString}`);
 
     if (!response.ok) {
