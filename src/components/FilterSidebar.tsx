@@ -62,7 +62,7 @@ function FilterBlock(props: FilterBlockProps) {
     <div className=" mb-4">
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="flex items-center justify-between w-full text-left font-medium text-gray-900 bg-gray-100 border border-gray-300 rounded px-4 py-2"
+        className="flex items-center justify-between w-full text-left font-medium text-gray-900 bg-gray-100 border border-gray-300 rounded px-4 py-2 cursor-pointer"
       >
         <span>{title} ({itemEntries.length})</span>
         {isExpanded ? (
@@ -80,7 +80,7 @@ function FilterBlock(props: FilterBlockProps) {
                 type="checkbox"
                 checked={selectedItems.includes(key)}
                 onChange={() => onItemToggle(key)}
-                className="w-4 h-4 text-[#1f5f8d] border-gray-300 rounded focus:ring-[#1f5f8d]"
+                className="w-4 h-4 accent-[#b17f3d] border-gray-300 rounded"
               />
               <span className="ml-2 text-gray-700 group-hover:text-gray-900 flex-1">
                 {key}
@@ -176,7 +176,7 @@ export default function FilterSidebar(props: FilterSidebarProps) {
         {getTotalSelectedCount() > 0 && (
           <button
             onClick={onClearAll}
-            className="text-sm text-[#fdb557] font-medium"
+            className="text-sm text-[#b17f3d] font-medium"
           >
             RESET
           </button>

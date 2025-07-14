@@ -38,7 +38,7 @@ export default function CardDataItem(props: CardDataItemProps) {
   const shouldShowToggle = isDescriptionLong();
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 max-w-md">
+    <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 max-w-md cursor-pointer">
       {/* Header */}
       <div className="mb-6">
         <h2 className="text-lg font-semibold text-[#1f5f8d] mb-3 leading-tight">

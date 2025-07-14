@@ -34,16 +34,16 @@ const Footer = () => {
           <div className="pb-8">
             <p className=" text-[#fdb557] font-bold mb-2 md:text-end">Follow Us</p>
             <div className="flex space-x-3">
-              <div className="w-[45px] h-[45px] bg-[#84dccf] rounded-full flex items-center justify-center hover:bg-gray-500 cursor-pointer">
+              <div className="w-[45px] h-[45px] bg-[#84dccf] rounded-full flex items-center justify-center hover:bg-[#fdb557] cursor-pointer">
                 <FiGithub className="w-6 h-6 text-black" />
               </div>
-              <div className="w-[45px] h-[45px] bg-[#84dccf] rounded-full flex items-center justify-center hover:bg-gray-500 cursor-pointer">
+              <div className="w-[45px] h-[45px] bg-[#84dccf] rounded-full flex items-center justify-center hover:bg-[#fdb557] cursor-pointer">
                 <LiaLinkedin className="w-6 h-6 text-black" />
               </div>
-              <div className="w-[45px] h-[45px] bg-[#84dccf] rounded-full flex items-center justify-center hover:bg-gray-500 cursor-pointer">
+              <div className="w-[45px] h-[45px] bg-[#84dccf] rounded-full flex items-center justify-center hover:bg-[#fdb557] cursor-pointer">
                 <TbBrandTwitter className="w-6 h-6 text-black" />
               </div>
-              <div className="w-[45px] h-[45px] bg-[#84dccf] rounded-full flex items-center justify-center hover:bg-gray-500 cursor-pointer">
+              <div className="w-[45px] h-[45px] bg-[#84dccf] rounded-full flex items-center justify-center hover:bg-[#fdb557] cursor-pointer">
                 <FiFacebook className="w-6 h-6 text-black" />
               </div>
             </div>
