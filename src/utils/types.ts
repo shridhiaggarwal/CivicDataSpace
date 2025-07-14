@@ -1,10 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { OrderBy, SortBy } from "./constants";
 
 export interface Dataset {
   id: string;
   title: string;
   description: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   metadata: any;
   tags: string[];
   sectors: string[];
@@ -12,9 +12,9 @@ export interface Dataset {
   organization: {
     name: string;
   };
-  geography: string;
-  created_at: string;
-  updated_at: string;
+  modified: string;
+  download_count: string;
+  has_charts: boolean;
 }
 
 export interface ApiResponse {

@@ -170,7 +170,7 @@ export default function FilterSidebar(props: FilterSidebarProps) {
   }
 
   return (
-    <div className="w-full md:w-[300px] bg-white p-4 border-r border-gray-200 shadow-xl rounded-lg h-full overflow-y-auto shrink-0">
+    <div className="w-full md:w-[300px] bg-white p-4 border-r border-gray-200 shadow-sm rounded-lg h-full overflow-y-auto shrink-0">
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-lg font-semibold text-[#1f5f8d]">FILTERS</h2>
         {getTotalSelectedCount() > 0 && (

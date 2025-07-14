@@ -12,6 +12,7 @@ import FilterSidebar, {
   FilterData,
   SelectedFilters,
 } from "@/components/FilterSidebar";
+import ListDataItem from "@/components/ListDataItem";
 
 export default function AllData() {
   const [datasets, setDatasets] = useState<Dataset[]>([]);
@@ -195,37 +196,29 @@ export default function AllData() {
         <div className="mb-4 text-red-500">Error loading datasets: {error}</div>
       )}
 
-      <div className="space-y-4">
-        <div className="flex flex-col md:flex-row gap-4">
-          <FilterSidebar
-            filterData={filterData}
-            selectedFilters={selectedFilters}
-            onFilterChange={setSelectedFilters}
-            onClearAll={() =>
-              setSelectedFilters({
-                sectors: [],
-                tags: [],
-                formats: [],
-                Geography: [],
-              })
-            }
-            loading={filtersLoading}
-          />
-          <div className="flex flex-col">
-            {datasetsLoading ? (
-              <div className="text-gray-500">Loading datasets...</div>
-            ) : (
-              datasets.map((dataset) => (
-                <div key={dataset.id} className="border p-4 rounded">
-                  <h3 className="font-semibold">{dataset.title}</h3>
-                  <p className="text-gray-600">{dataset.description}</p>
-                  <p className="text-sm text-gray-500">
-                    Organization: {dataset.organization.name}
-                  </p>
-                </div>
-              ))
-            )}
-          </div>
+      <div className="flex flex-col md:flex-row gap-4">
+        <FilterSidebar
+          filterData={filterData}
+          selectedFilters={selectedFilters}
+          onFilterChange={setSelectedFilters}
+          onClearAll={() =>
+            setSelectedFilters({
+              sectors: [],
+              tags: [],
+              formats: [],
+              Geography: [],
+            })
+          }
+          loading={filtersLoading}
+        />
+        <div className="flex-1 w-full max-w-full min-w-0 flex flex-col gap-6">
+          {datasetsLoading ? (
+            <div className="text-gray-500">Loading datasets...</div>
+          ) : (
+            datasets.map((dataset) => (
+              <ListDataItem key={dataset.id} data={dataset} />
+            ))
+          )}
         </div>
       </div>
     </div>
