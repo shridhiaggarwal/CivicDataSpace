@@ -49,7 +49,6 @@ export default function AllData() {
       });
 
       setFilterData(response.aggregations);
-      setTotalItems(response.total);
     } catch (err) {
       console.error("Failed to fetch filter aggregations:", err);
       // Don't set error for filter aggregations failure
@@ -86,8 +85,8 @@ export default function AllData() {
           formats: filters.formats.length > 0 ? filters.formats : undefined,
         });
 
-        console.log("API Response:", response);
         setDatasets(response.results);
+        setTotalItems(response.total);
       } catch (err) {
         setError("Failed to fetch datasets");
         console.error(err);
@@ -122,6 +121,11 @@ export default function AllData() {
     rowsPerPage,
     currentPage,
   ]);
+
+  // Reset page to 1 when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedFilters, searchQuery]);
 
   const handleSearch = (value: string) => {
     setSearchQuery(value);
