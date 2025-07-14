@@ -64,7 +64,7 @@ function FilterBlock(props: FilterBlockProps) {
         onClick={() => setIsExpanded(!isExpanded)}
         className="flex items-center justify-between w-full text-left font-medium text-gray-900 bg-gray-100 border border-gray-300 rounded px-4 py-2"
       >
-        <span>{title}</span>
+        <span>{title} ({itemEntries.length})</span>
         {isExpanded ? (
           <FaMinus className="w-4 h-4 text-gray-500" />
         ) : (
@@ -80,7 +80,7 @@ function FilterBlock(props: FilterBlockProps) {
                 type="checkbox"
                 checked={selectedItems.includes(key)}
                 onChange={() => onItemToggle(key)}
-                className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                className="w-4 h-4 text-[#1f5f8d] border-gray-300 rounded focus:ring-[#1f5f8d]"
               />
               <span className="ml-2 text-gray-700 group-hover:text-gray-900 flex-1">
                 {key}
@@ -127,12 +127,17 @@ export default function FilterSidebar(props: FilterSidebarProps) {
     filterType: keyof SelectedFilters,
     item: string
   ) => {
-    const currentItems = selectedFilters[filterType] || [];
-    const newItems = currentItems.includes(item)
-      ? currentItems.filter((i) => i !== item)
-      : [...currentItems, item];
+    onFilterChange((prevFilters: any) => {
+      const currentItems = prevFilters[filterType] || [];
+      const newItems = currentItems.includes(item)
+        ? currentItems.filter((i: any) => i !== item)
+        : [...currentItems, item];
 
-    onFilterChange(filterType, newItems);
+      return {
+        ...prevFilters,
+        [filterType]: newItems,
+      };
+    });
   };
 
   const getTotalSelectedCount = (): number => {

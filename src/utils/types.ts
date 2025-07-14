@@ -30,12 +30,12 @@ export interface ApiResponse {
 
 export interface SearchParams {
   query?: string;
-  Geography?: string;
-  sectors?: string;
-  tags?: string;
-  formats?: string;
-  page?: number;
-  size?: number;
   sort?: SortBy;
   order?: OrderBy;
+  page?: number;
+  size?: number;
+  Geography?: string[];
+  sectors?: string[];
+  tags?: string[];
+  formats?: string[];
 }

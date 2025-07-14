@@ -8,12 +8,16 @@ import { CiGrid2H, CiGrid41 } from "react-icons/ci";
 import { BiSort } from "react-icons/bi";
 import { FaChevronDown } from "react-icons/fa";
 import { OrderBy, SortBy, sortOptions, ViewMode } from "@/utils/constants";
-import FilterSidebar, { FilterData, SelectedFilters } from "@/components/FilterSidebar";
+import FilterSidebar, {
+  FilterData,
+  SelectedFilters,
+} from "@/components/FilterSidebar";
 
 export default function AllData() {
   const [datasets, setDatasets] = useState<Dataset[]>([]);
   const [filterData, setFilterData] = useState<FilterData>({});
-  const [loading, setLoading] = useState(true);
+  const [datasetsLoading, setDatasetsLoading] = useState(true);
+  const [filtersLoading, setFiltersLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [viewMode, setViewMode] = useState<ViewMode>(ViewMode.LIST);
   const [orderBy, setOrderBy] = useState<OrderBy>(OrderBy.ASCENDING);
@@ -27,38 +31,74 @@ export default function AllData() {
     Geography: [],
   });
 
-  // Fetch data function
-  const fetchData = useCallback(
-    async (query: string, sort: SortBy, order: OrderBy) => {
+  // Fetch filter aggregations only once
+  const fetchFilterAggregations = useCallback(async () => {
+    try {
+      setFiltersLoading(true);
+
+      // Fetch with no filters to get all possible aggregations
+      const response = await searchDatasets({
+        page: 1,
+        size: 1, // We only need aggregations, not the actual data
+      });
+
+      console.log("Filter Aggregations Response:", response);
+      setFilterData(response.aggregations);
+    } catch (err) {
+      console.error("Failed to fetch filter aggregations:", err);
+      // Don't set error for filter aggregations failure
+    } finally {
+      setFiltersLoading(false);
+    }
+  }, []);
+
+  // Fetch datasets with current filters and search
+  const fetchDatasets = useCallback(
+    async (
+      query: string,
+      sort: SortBy,
+      order: OrderBy,
+      filters: SelectedFilters
+    ) => {
       try {
-        setLoading(true);
+        setDatasetsLoading(true);
         setError(null);
 
         const response = await searchDatasets({
           page: 1,
-          size: 20,
+          size: 50,
           sort: sort.toLowerCase() as SortBy,
           order: order as OrderBy,
           query: query.trim() || undefined,
+          // Pass the filter arrays
+          Geography:
+            filters.Geography.length > 0 ? filters.Geography : undefined,
+          sectors: filters.sectors.length > 0 ? filters.sectors : undefined,
+          tags: filters.tags.length > 0 ? filters.tags : undefined,
+          formats: filters.formats.length > 0 ? filters.formats : undefined,
         });
 
         console.log("API Response:", response);
         setDatasets(response.results);
-        setFilterData(response.aggregations);
       } catch (err) {
         setError("Failed to fetch datasets");
         console.error(err);
       } finally {
-        setLoading(false);
+        setDatasetsLoading(false);
       }
     },
     []
   );
 
-  // Initial fetch on mount
+  // Initial fetch on mount - fetch filter aggregations once
   useEffect(() => {
-    fetchData(searchQuery, sortBy, orderBy);
-  }, [fetchData, searchQuery, sortBy, orderBy]);
+    fetchFilterAggregations();
+  }, [fetchFilterAggregations]);
+
+  // Fetch datasets when search, sort, order, or filters change
+  useEffect(() => {
+    fetchDatasets(searchQuery, sortBy, orderBy, selectedFilters);
+  }, [fetchDatasets, searchQuery, sortBy, orderBy, selectedFilters]);
 
   const handleSearch = (value: string) => {
     setSearchQuery(value);
@@ -156,26 +196,26 @@ export default function AllData() {
       )}
 
       <div className="space-y-4">
-        {loading ? (
-          <div className="text-gray-500">Loading datasets...</div>
-        ) : (
-          <div className="flex flex-col md:flex-row gap-4">
-            <FilterSidebar
-              filterData={filterData}
-              selectedFilters={selectedFilters}
-              onFilterChange={setSelectedFilters}
-              onClearAll={() =>
-                setSelectedFilters({
-                  sectors: [],
-                  tags: [],
-                  formats: [],
-                  Geography: [],
-                })
-              }
-              loading={loading}
-            />
-            <div className="flex flex-col">
-              {datasets.map((dataset) => (
+        <div className="flex flex-col md:flex-row gap-4">
+          <FilterSidebar
+            filterData={filterData}
+            selectedFilters={selectedFilters}
+            onFilterChange={setSelectedFilters}
+            onClearAll={() =>
+              setSelectedFilters({
+                sectors: [],
+                tags: [],
+                formats: [],
+                Geography: [],
+              })
+            }
+            loading={filtersLoading}
+          />
+          <div className="flex flex-col">
+            {datasetsLoading ? (
+              <div className="text-gray-500">Loading datasets...</div>
+            ) : (
+              datasets.map((dataset) => (
                 <div key={dataset.id} className="border p-4 rounded">
                   <h3 className="font-semibold">{dataset.title}</h3>
                   <p className="text-gray-600">{dataset.description}</p>
@@ -183,10 +223,10 @@ export default function AllData() {
                     Organization: {dataset.organization.name}
                   </p>
                 </div>
-              ))}
-            </div>
+              ))
+            )}
           </div>
-        )}
+        </div>
       </div>
     </div>
   );
